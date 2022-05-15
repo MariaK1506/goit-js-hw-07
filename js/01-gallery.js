@@ -75,7 +75,6 @@ console.log(galleryItems);
 // console.log(galleryItems);
 
 refs.galleryList.addEventListener("click", onGalleryItemsClick);
-// refs.itemLink.addEventListener("click", (event) => event.preventDefault());
 
 function onGalleryItemsClick(event) {
   event.preventDefault();
