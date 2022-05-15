@@ -3,31 +3,14 @@ import { galleryItems } from "./gallery-items.js";
 
 const refs = {
   galleryList: document.querySelector(".gallery"),
-  itemLink: document.querySelector(".gallery__link"),
 };
+
+let instance;
+
+// 1 задание
+// Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи.
+
 // 1 вариант
-
-// const markupGallery = ({ preview, original, description }) => {
-//   //   object = { preview, original, description };
-//   return `
-//   <div class="gallery__item">
-//   <a class="gallery__link" href="${original}">
-//     <img
-//       class="gallery__image"
-//       src="${preview}"
-//       data-source="${original}"
-//       alt="${description}"
-//     />
-//   </a>
-// </div>
-// `;
-// };
-// const addMarkup = galleryItems.map(markupGallery).join("");
-// refs.galleryList.insertAdjacentHTML("afterbegin", addMarkup);
-// console.log(galleryItems);
-
-//
-// 2 вариант
 
 function createGalleryMarkup(items) {
   return items
@@ -48,41 +31,47 @@ function createGalleryMarkup(items) {
     .join("");
 }
 
-const itemMarkup = createGalleryMarkup(galleryItems);
-refs.galleryList.insertAdjacentHTML("afterbegin", itemMarkup);
+refs.galleryList.insertAdjacentHTML(
+  "afterbegin",
+  createGalleryMarkup(galleryItems)
+);
 
 console.log(galleryItems);
 
-// 3 вариант
-
-// const markupGallery = galleryItems
-//   .map(
-//     ({ preview, original, description }) => `
-//   <div class="gallery__item">
-//   <a class="gallery__link" href="${original}">
-//     <img
-//       class="gallery__image"
-//       src="${preview}"
-//       data-source="${original}"
-//       alt="${description}"
-//     />
-//   </a>
-// </div>
-//  `
-//   )
-//   .join("");
-// refs.galleryList.insertAdjacentHTML("afterbegin", markupGallery);
-// console.log(galleryItems);
+// 2 задание
+// Реализация делегирования на div.gallery и получение url большого изображения.
 
 refs.galleryList.addEventListener("click", onGalleryItemsClick);
 
 function onGalleryItemsClick(event) {
   event.preventDefault();
-  //   console.log(event.target.nodeName);
 
   if (!event.target.classList.contains("gallery__image")) {
     return;
   }
-  console.log(event.target.dataset.source);
-  //
+  const largeImg = event.target.dataset.source;
+  openModal(largeImg);
+}
+
+// 4 задание
+// Открытие модального окна по клику на элементе галереи.Для этого ознакомься с документацией и примерами.
+// 5 задание
+// Замена значения атрибута src элемента < img > в модальном окне перед открытием.Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox.
+
+function openModal(img) {
+  instance = basicLightbox.create(`
+    <img src="${img}" width=1280">
+`);
+  instance.show();
+  window.addEventListener("keydown", onEscapeKeyPress);
+}
+
+// Добавь закрытие модального окна по нажатию клавиши Escape. Сделай так, чтобы прослушивание клавиатуры было только пока открыто модальное окно.
+
+function onEscapeKeyPress(event) {
+  if (event.code === "Escape") {
+    // console.log("escape");
+    instance.close();
+    window.removeEventListener("keydown", onEscapeKeyPress);
+  }
 }
