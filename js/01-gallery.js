@@ -10,8 +10,6 @@ let instance;
 // 1 задание
 // Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи.
 
-// 1 вариант
-
 function createGalleryMarkup(items) {
   return items
     .map(({ preview, original, description }) => {
