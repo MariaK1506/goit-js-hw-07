@@ -29,10 +29,12 @@ function createGalleryMarkup(items) {
     .join("");
 }
 
-refs.galleryList.insertAdjacentHTML(
-  "afterbegin",
-  createGalleryMarkup(galleryItems)
-);
+// refs.galleryList.insertAdjacentHTML(
+//   "afterbegin",
+//   createGalleryMarkup(galleryItems)
+// );
+
+refs.galleryList.innerHTML = createGalleryMarkup(galleryItems);
 
 console.log(galleryItems);
 
