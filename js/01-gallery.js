@@ -50,7 +50,7 @@ function onGalleryItemsClick(event) {
     return;
   }
   const largeImg = event.target.dataset.source;
-  openModal(largeImg);
+  showModal(largeImg);
 }
 
 // 4 задание
@@ -58,26 +58,27 @@ function onGalleryItemsClick(event) {
 // 5 задание
 // Замена значения атрибута src элемента < img > в модальном окне перед открытием.Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox.
 
-function openModal(img) {
-  instance = basicLightbox.create(`
-    <img src="${img}" width=1280">
-`);
+function showModal(img) {
+  instance = basicLightbox.create(`<img src="${img}" width=1280">`, {
+    onShow: openModal,
+    onClose: closeModal,
+  });
   instance.show();
+}
+
+function openModal() {
   window.addEventListener("keydown", onEscapeKeyPress);
+}
+
+function closeModal() {
+  window.removeEventListener("keydown", onEscapeKeyPress);
 }
 
 // Добавь закрытие модального окна по нажатию клавиши Escape. Сделай так, чтобы прослушивание клавиатуры было только пока открыто модальное окно.
 
-function closeModal(event) {
-  console.log(event);
-  instance.close();
-
-  window.removeEventListener("keydown", onEscapeKeyPress);
-}
-
 function onEscapeKeyPress(event) {
   if (event.code === "Escape") {
-    console.log("escape");
+    // console.log("escape");
     instance.close();
     window.removeEventListener("keydown", onEscapeKeyPress);
   }
