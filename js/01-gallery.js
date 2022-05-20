@@ -68,9 +68,16 @@ function openModal(img) {
 
 // Добавь закрытие модального окна по нажатию клавиши Escape. Сделай так, чтобы прослушивание клавиатуры было только пока открыто модальное окно.
 
+function closeModal(event) {
+  console.log(event);
+  instance.close();
+
+  window.removeEventListener("keydown", onEscapeKeyPress);
+}
+
 function onEscapeKeyPress(event) {
   if (event.code === "Escape") {
-    // console.log("escape");
+    console.log("escape");
     instance.close();
     window.removeEventListener("keydown", onEscapeKeyPress);
   }
